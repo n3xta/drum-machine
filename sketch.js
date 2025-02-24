@@ -45,21 +45,21 @@ let drumNames = [
 let nTracks = drumNames.length;
 
 kit = new Tone.Players({
-  "ui_click": "/samples/ui_click.wav",
-  "ui_swipe": "/samples/ui_swipe.wav",
-  "187_percussion": "/samples/187_percussion.wav",
-  // "glitch_hoito": "/samples/glitch_hoito.wav",
-  // "glitch_kumman": "/samples/glitch_kumman.wav",
-  "glitch_paha": "/samples/glitch_paha.wav",
-  "glitch_saitko": "/samples/glitch_saitko.wav",
-  // "glitch_tuonne": "/samples/glitch_tuonne.wav",
-  "hat_lupaan": "/samples/hat_lupaan.wav",
-  "hat_oitte": "/samples/hat_oitte.wav",
-  "hat_potku": "/samples/hat_potku.wav",
-  "kick_katoa": "/samples/kick_katoa.wav",
-  "kick_kiinni": "/samples/kick_kiinni.wav",
-  "percussion_asia": "/samples/percussion_asia.wav",
-  "tuntuu": "/samples/tuntuu.wav"
+  "ui_click": "/public/ui_click.wav",
+  "ui_swipe": "/public/ui_swipe.wav",
+  "187_percussion": "/public/187_percussion.wav",
+  // "glitch_hoito": "/public/glitch_hoito.wav",
+  // "glitch_kumman": "/public/glitch_kumman.wav",
+  "glitch_paha": "/public/glitch_paha.wav",
+  "glitch_saitko": "/public/glitch_saitko.wav",
+  // "glitch_tuonne": "/public/glitch_tuonne.wav",
+  "hat_lupaan": "/public/hat_lupaan.wav",
+  "hat_oitte": "/public/hat_oitte.wav",
+  "hat_potku": "/public/hat_potku.wav",
+  "kick_katoa": "/public/kick_katoa.wav",
+  "kick_kiinni": "/public/kick_kiinni.wav",
+  "percussion_asia": "/public/percussion_asia.wav",
+  "tuntuu": "/public/tuntuu.wav"
 });
 kit.toDestination();
 Tone.Transport.scheduleRepeat(onBeat, "4n");
@@ -116,10 +116,10 @@ function appendToTerminal(soundName) {
 }
 
 let ambientSounds = [
-  { label: "1", file: "samples/80_RADIOFEEDBACK_DRONE.wav" },
-  { label: "2", file: "samples/AG_110_drum_loop_data_glitch.wav" },
-  { label: "3", file: "samples/AG_110_noise_loop_enter.wav" },
-  { label: "4", file: "samples/AG_130_drone_loop_toikoi.wav" }
+  { label: "1", file: "public/80_RADIOFEEDBACK_DRONE.wav" },
+  { label: "2", file: "public/AG_110_drum_loop_data_glitch.wav" },
+  { label: "3", file: "public/AG_110_noise_loop_enter.wav" },
+  { label: "4", file: "public/AG_130_drone_loop_toikoi.wav" }
 ];
 
 let ambientPlayers = {};
@@ -198,6 +198,7 @@ function setup() {
 function draw() {
   background(13);
   let w = 60;
+  frameRate(30);
 
   noStroke();
 
@@ -233,9 +234,9 @@ function draw() {
       //noStroke();
       rect(i * w, 0, w, height);
 
-      strokeWeight(random(1,3));
-      stroke(65,255,0);
-      line(i*w, 0, i*w+random(-10,10), height);
+      // strokeWeight(random(1,3));
+      // stroke(65,255,0);
+      // line(i*w, 0, i*w+random(-10,10), height);
     }
   }
 
