@@ -82,40 +82,45 @@ function onBeat(time) {
       appendToTerminal(drumNames[track]);
     }
   }
+
+  if (lineBuffer.length > 0) {
+    const terminal = document.getElementById("terminal");
+    if (terminal) {
+      let newLine = document.createElement("div"); // 创建新的行
+      newLine.textContent = lineBuffer; // 设置文本
+      terminal.appendChild(newLine); // 追加到终端
+      terminal.scrollTop = terminal.scrollHeight; // 滚动到底部
+    }
+    lineBuffer = ""; // 清空缓冲区，为下一拍准备
+  }
 }
 
 let randomWords = [
-  // "heap", "stack", "queue", "graph", "node",  
-  // "tree", "linked", "hash", "bloom", "trie",
-  // "cache", "buffer", "mutex", "latency", "event",
-  // "render", "hydrate", "fetch", "route", "session",
-  // "server", "socket", "endpoint", "stream", "promise",
-  // "glitch", "noise", "echo", "state", "sync",
-  // "commit", "rollback", "shard", "replica", "query",
-  // "schema", "index", "resolver", "sandbox", "proxy"
+  "ls", "cd", "rm", "mv", "cp", "echo", "touch", "mkdir",
+  "grep", "awk", "sed", "cat", "less", "more", "tail", "head",
+  "find", "xargs", "chmod", "chown", "ps", "top", "kill", "pkill",
+  "curl", "wget", "tar", "zip", "unzip", "scp", "rsync",
+  "ping", "traceroute", "dig", "netstat", "ifconfig", "ip",
+  "uptime", "whoami", "hostname", "df", "du", "free",
+  "env", "export", "alias", "unalias", "history",
 ];
 
-let randomPunctuations = [" ", " ", " ", "  ", "\n", " -- ", "... ", ". "];
+let randomPunctuations = [" ", " ", " ", "  ", " -- ", "... ", ". "];
+let lineBuffer = "";
 
 function appendToTerminal(soundName) {
-  const terminal = document.getElementById("terminal");
-  if (!terminal) return;
-
-  let line = "";
-  
   let wordCount = Math.floor(Math.random() * 4) + 1;
+  let line = "";
+
   for (let i = 0; i < wordCount; i++) {
-    let w = randomWords[Math.floor(Math.random() * randomWords.length)];
-    line += w;
+    // let w = randomWords[Math.floor(Math.random() * randomWords.length)];
     let punc = randomPunctuations[Math.floor(Math.random() * randomPunctuations.length)];
+    // line += w + punc;
     line += punc;
   }
 
-  line += "[" + soundName + "]\n"; 
-
-  terminal.textContent += line;
-  
-  terminal.scrollTop = terminal.scrollHeight;
+  line += "[" + soundName + "] ";
+  lineBuffer += line; // 将内容追加到 lineBuffer
 }
 
 let ambientSounds = [
@@ -243,14 +248,16 @@ function draw() {
     }
   }
 
-  // loadPixels();
-  // for (let i = 0; i < pixels.length; i += 4) {
-  // let noiseVal = random(-20, 20);
-  // pixels[i]   += noiseVal;   // R
-  // pixels[i+1] += noiseVal;   // G
-  // pixels[i+2] += noiseVal;   // B
+  // if (frameCount % 10 === 0) {
+    loadPixels();
+    for (let i = 0; i < pixels.length; i += 4) {
+      let noiseVal = random(-20, 20);
+      pixels[i]   += noiseVal;   // R
+      pixels[i+1] += noiseVal;   // G
+      pixels[i+2] += noiseVal;   // B
+    }
+    updatePixels();
   // }
-  // updatePixels();
   
 }
 
