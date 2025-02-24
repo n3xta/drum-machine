@@ -50,19 +50,19 @@ let nTracks = drumNames.length;
 kit = new Tone.Players({
   "ui_click": "assets/ui_click.wav",
   "ui_swipe": "assets/ui_swipe.wav",
-  "187_percussion": "/assets/187_percussion.wav",
+  "187_percussion": "assets/187_percussion.wav",
   // "glitch_hoito": "/assets/glitch_hoito.wav",
   // "glitch_kumman": "/assets/glitch_kumman.wav",
-  "glitch_paha": "/assets/glitch_paha.wav",
-  "glitch_saitko": "/assets/glitch_saitko.wav",
+  "glitch_paha": "assets/glitch_paha.wav",
+  "glitch_saitko": "assets/glitch_saitko.wav",
   // "glitch_tuonne": "/assets/glitch_tuonne.wav",
-  "hat_lupaan": "/assets/hat_lupaan.wav",
-  "hat_oitte": "/assets/hat_oitte.wav",
-  "hat_potku": "/assets/hat_potku.wav",
-  "kick_katoa": "/assets/kick_katoa.wav",
-  "kick_kiinni": "/assets/kick_kiinni.wav",
-  "percussion_asia": "/assets/percussion_asia.wav",
-  "tuntuu": "/assets/tuntuu.wav"
+  "hat_lupaan": "assets/hat_lupaan.wav",
+  "hat_oitte": "assets/hat_oitte.wav",
+  "hat_potku": "assets/hat_potku.wav",
+  "kick_katoa": "assets/kick_katoa.wav",
+  "kick_kiinni": "assets/kick_kiinni.wav",
+  "percussion_asia": "assets/percussion_asia.wav",
+  "tuntuu": "assets/tuntuu.wav"
 });
 kit.toDestination();
 Tone.Transport.scheduleRepeat(onBeat, "4n");
@@ -119,10 +119,10 @@ function appendToTerminal(soundName) {
 }
 
 let ambientSounds = [
-  { label: "1", file: "/assets/80_RADIOFEEDBACK_DRONE.wav" },
-  { label: "2", file: "/assets/AG_110_drum_loop_data_glitch.wav" },
-  { label: "3", file: "/assets/AG_110_noise_loop_enter.wav" },
-  { label: "4", file: "/assets/AG_130_drone_loop_toikoi.wav" }
+  { label: "1", file: "assets/80_RADIOFEEDBACK_DRONE.wav" },
+  { label: "2", file: "assets/AG_110_drum_loop_data_glitch.wav" },
+  { label: "3", file: "assets/AG_110_noise_loop_enter.wav" },
+  { label: "4", file: "assets/AG_130_drone_loop_toikoi.wav" }
 ];
 
 let ambientPlayers = {};
