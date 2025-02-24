@@ -234,9 +234,9 @@ function draw() {
       //noStroke();
       rect(i * w, 0, w, height);
 
-      // strokeWeight(random(1,3));
-      // stroke(65,255,0);
-      // line(i*w, 0, i*w+random(-10,10), height);
+      strokeWeight(random(1,3));
+      stroke(65,255,0);
+      line(i*w, 0, i*w+random(-10,10), height);
     }
   }
 
