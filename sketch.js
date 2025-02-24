@@ -76,8 +76,43 @@ function onBeat(time) {
     if (cells[track][currentStep]) {
       let player = kit.player(drumNames[track]);
       player.start(time);
+      appendToTerminal(drumNames[track]);
     }
   }
+}
+
+let randomWords = [
+  "heap", "stack", "queue", "graph", "node",  
+  "tree", "linked", "hash", "bloom", "trie",
+  "cache", "buffer", "mutex", "latency", "event",
+  "render", "hydrate", "fetch", "route", "session",
+  "server", "socket", "endpoint", "stream", "promise",
+  "glitch", "noise", "echo", "state", "sync",
+  "commit", "rollback", "shard", "replica", "query",
+  "schema", "index", "resolver", "sandbox", "proxy"
+];
+
+let randomPunctuations = [" ", " ", " ", "  ", "\n", " -- ", "... ", ". "];
+
+function appendToTerminal(soundName) {
+  const terminal = document.getElementById("terminal");
+  if (!terminal) return;
+
+  let line = "";
+  
+  let wordCount = Math.floor(Math.random() * 4) + 1;
+  for (let i = 0; i < wordCount; i++) {
+    let w = randomWords[Math.floor(Math.random() * randomWords.length)];
+    line += w;
+    let punc = randomPunctuations[Math.floor(Math.random() * randomPunctuations.length)];
+    line += punc;
+  }
+
+  line += "[" + soundName + "]\n"; 
+
+  terminal.textContent += line;
+  
+  terminal.scrollTop = terminal.scrollHeight;
 }
 
 let ambientSounds = [
