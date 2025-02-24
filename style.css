@@ -3,6 +3,19 @@ html, body {
   padding: 0;
 }
 
+body {
+  font-family: 'VT323', monospace;
+  background-color: #0D0D0D;
+  color: #E5E5E5;
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  display: inline-block;
+  margin-right: 8px;
+}
+
 canvas {
   display: block;
 }
@@ -21,17 +34,57 @@ canvas {
   z-index: 1000;
 }
 
+#bpmInput, #timeSigNum {
+  background: #111;
+  color: #41FF00;
+  border: 0px solid #555;
+  width: 60px;
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  text-align: center;
+}
+
 .ambient-sound {
   display: inline-block;
-  padding: 10px 15px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
   margin: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #555;
   cursor: pointer;
   user-select: none;
+  
+  background-color: #222;
+  color: #41FF00;
 }
+
 .ambient-sound.active {
-  background-color: #a0e7a0; /* 正在播放时显示绿色 */
+  background-color: #40ff0041;
+  color: #41FF00; 
 }
+
 .ambient-sound.inactive {
-  background-color: #e7a0a0; /* 停止时显示红色 */
+  background-color: #222;
+  color: #666;
+}
+
+#ambientControls {
+  padding: 10px;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+
+#controlsBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px auto;
+  padding: 10px;
+  /* border: 2px solid #555;  */
+  max-width: 600px;
 }
