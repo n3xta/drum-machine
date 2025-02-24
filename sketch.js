@@ -1,57 +1,3 @@
-// Ambient sounds 列表（根据实际文件路径调整）
-let ambientSounds = [
-  { label: "80_RADIOFEEDBACK_DRONE", file: "/samples/80_RADIOFEEDBACK_DRONE.wav" },
-  { label: "187_percussion", file: "/samples/187_percussion.wav" },
-  { label: "AG_110_drum_loop_data_gitch", file: "/samples/AG_110_drum_loop_data_gitch.wav" },
-  { label: "AG_110_noise_loop_enter", file: "/samples/AG_110_noise_loop_enter.wav" },
-  { label: "AG_130_drone_loop_toikoi", file: "/samples/AG_130_drone_loop_toikoi.wav" }
-];
-
-// 保存 ambient players 的对象
-let ambientPlayers = {};
-// 全局 ambient 循环播放复选框
-let ambientLoopCheckbox;
-
-function setupAmbientControls() {
-  // 创建一个容器，方便管理 ambient 控件
-  let ambientDiv = createDiv().id("ambientControls");
-  ambientDiv.style("margin-top", "10px");
-
-  // 创建循环播放的复选框，默认不循环播放
-  ambientLoopCheckbox = createCheckbox("循环播放", false);
-  ambientLoopCheckbox.parent(ambientDiv);
-  ambientLoopCheckbox.changed(() => {
-    // 如果复选框状态改变，更新正在播放的 ambient sound 的 loop 属性
-    for (let key in ambientPlayers) {
-      if (ambientPlayers[key].state === "started") {
-        ambientPlayers[key].loop = ambientLoopCheckbox.checked();
-      }
-    }
-  });
-
-  // 为每个 ambient sound 创建一个按钮，并同时创建对应的 Tone.Player
-  ambientSounds.forEach((sound) => {
-    // 创建并连接 player 到输出
-    ambientPlayers[sound.label] = new Tone.Player(sound.file).toDestination();
-    
-    // 创建按钮
-    let btn = createButton(sound.label);
-    btn.parent(ambientDiv);
-    
-    // 点击按钮时切换播放/停止状态
-    btn.mousePressed(() => {
-      let player = ambientPlayers[sound.label];
-      if (player.state === "started") {
-        player.stop();
-      } else {
-        // 根据复选框设置循环播放
-        player.loop = ambientLoopCheckbox.checked();
-        player.start();
-      }
-    });
-  });
-}
-
 // Sequencer 参数
 let bpm = 240;
 let timeSignature = [4, 4];
@@ -79,7 +25,7 @@ function reinitializeGrid() {
   }
 }
 
-// Sound
+// Sound: Drum Kit
 let kit;
 let drumNames = [
   "ui_click",
@@ -137,7 +83,74 @@ function onBeat(time) {
   }
 }
 
-// Graphics
+// Ambient Sounds 配置
+let ambientSounds = [
+  { label: "1", file: "samples/80_RADIOFEEDBACK_DRONE.wav" },
+  { label: "2", file: "samples/AG_110_drum_loop_data_glitch.wav" },
+  { label: "3", file: "samples/AG_110_noise_loop_enter.wav" },
+  { label: "4", file: "samples/AG_130_drone_loop_toikoi.wav" }
+];
+
+// 用于保存 ambient 声音的 Tone.Player 实例和状态（true: 播放中，false: 停止）
+let ambientPlayers = {};
+let ambientStates = {};
+
+// 初始化 ambient sounds 控制，注意这里是从 HTML 中读取对应元素
+function setupAmbientControls() {
+  let ambientElements = document.querySelectorAll(".ambient-sound");
+  if (!ambientElements.length) {
+    console.error("未在 HTML 中找到任何 .ambient-sound 元素！");
+    return;
+  }
+  
+  ambientElements.forEach(elem => {
+    let label = elem.getAttribute("data-sound");
+    // 根据 label 在配置中查找对应的 ambient 声音
+    let soundObj = ambientSounds.find(s => s.label === label);
+    if (!soundObj) {
+      console.error("未找到对应配置： " + label);
+      return;
+    }
+    
+    // 创建 Tone.Player，默认设置为循环播放但不自动启动
+    ambientPlayers[label] = new Tone.Player({
+      url: soundObj.file,
+      loop: true,
+      autostart: false
+    }).toDestination();
+    
+    // 默认状态为播放中（1），不过实际播放需等音频上下文启动后开始
+    ambientStates["1"] = false;
+    ambientStates["2"] = false;
+    ambientStates["3"] = false;
+    ambientStates["4"] = true;
+    if (label === "1" || label === "2" || label === "3") {
+      elem.classList.add("inactive");
+    } else {
+      elem.classList.add("active");
+    }
+    
+    // 绑定点击事件，实现状态切换
+    elem.addEventListener("click", () => {
+      if (ambientStates[label]) {
+        // 当前处于播放中，点击后停止播放
+        ambientPlayers[label].stop();
+        ambientStates[label] = false;
+        elem.classList.remove("active");
+        elem.classList.add("inactive");
+      } else {
+        // 当前已停止，点击后恢复循环播放
+        ambientPlayers[label].loop = true;
+        ambientPlayers[label].start();
+        ambientStates[label] = true;
+        elem.classList.remove("inactive");
+        elem.classList.add("active");
+      }
+    });
+  });
+}
+
+// Graphics 部分
 let w = 60;
 let gray;
 let colors = [
@@ -152,13 +165,16 @@ function setup() {
   cellHeight = height / nTracks;
   gray = color(178, 178, 188);
 
-  // 初始化所有 sequencer 单元格，ON: 1, OFF: 0
+  // 初始化 sequencer 网格
   for (let track = 0; track < nTracks; track++) {
     cells[track] = [];
     for (let step = 0; step < nSteps(); step++) {
       cells[track][step] = 0;
     }
   }
+
+  // 初始化 ambient 控制（确保 HTML 中 ambient 元素已加载）
+  setupAmbientControls();
 }
 
 function draw() {
@@ -167,7 +183,7 @@ function draw() {
 
   noStroke();
 
-  // Draw cells that are on
+  // 绘制处于开启状态的格子
   for (let step = 0; step < nSteps(); step++) {
     for (let track = 0; track < nTracks; track++) {
       if (cells[track][step] == 1) {
@@ -177,14 +193,14 @@ function draw() {
     }
   }
 
-  // Draw horizontal lines
+  // 绘制横线
   stroke(gray);
   for (let i = 0; i <= nTracks; i++) {
     let y = i * w;
     line(0, y, width, y);
   }
 
-  // Draw vertical lines
+  // 绘制竖线及当前播放步高亮
   for (let i = 0; i <= nSteps(); i++) {
     if (i % timeSignature[0] == 0) {
       strokeWeight(1);
@@ -196,7 +212,6 @@ function draw() {
 
     line(i * w, 0, i * w, height);
 
-    // Highlight the step that is playing
     if (i == currentStep && Tone.Transport.state == "started") {
       fill(234, 30, 83, 60);
       noStroke();
@@ -206,14 +221,13 @@ function draw() {
 }
 
 function mousePressed() {
-  // Determine which cell the mouse is on
+  // 计算鼠标点击的是哪个单元格
   let i = floor(mouseX / w);
   let j = floor(mouseY / w);
-  // Toggle cell on/off
   cells[j][i] = !cells[j][i];
 }
 
-// Once all audio files have been loaded, start the Tone playhead
+// Tone.js 所有音频文件加载完成后启动 Transport
 Tone.loaded().then(function () {
   console.log("loaded");
   Tone.Transport.start();
@@ -223,8 +237,14 @@ document.getElementById("startOverlay").addEventListener("click", async () => {
   await Tone.start();
   console.log("Audio context started");
   Tone.Transport.start();
-  // Remove or hide the overlay
   document.getElementById("startOverlay").style.display = "none";
+  
+  // 启动所有默认处于开启状态的 ambient sound
+  for (let key in ambientPlayers) {
+    if (ambientStates[key]) {
+      ambientPlayers[key].start();
+    }
+  }
 });
 
 document.getElementById("bpmInput").addEventListener("change", (e) => {
@@ -236,6 +256,6 @@ document.getElementById("bpmInput").addEventListener("change", (e) => {
 document.getElementById("timeSigNum").addEventListener("change", (e) => {
   timeSignature[0] = parseInt(e.target.value);
   Tone.Transport.timeSignature = timeSignature[0];
-  reinitializeGrid(); // 重新初始化网格，步数和格子宽度会随之变化
+  reinitializeGrid();
   console.log("拍号更新为: " + timeSignature[0] + "/" + timeSignature[1]);
 });
