@@ -243,14 +243,14 @@ function draw() {
     }
   }
 
-  loadPixels();
-  for (let i = 0; i < pixels.length; i += 4) {
-  let noiseVal = random(-20, 20);
-  pixels[i]   += noiseVal;   // R
-  pixels[i+1] += noiseVal;   // G
-  pixels[i+2] += noiseVal;   // B
-  }
-  updatePixels();
+  // loadPixels();
+  // for (let i = 0; i < pixels.length; i += 4) {
+  // let noiseVal = random(-20, 20);
+  // pixels[i]   += noiseVal;   // R
+  // pixels[i+1] += noiseVal;   // G
+  // pixels[i+2] += noiseVal;   // B
+  // }
+  // updatePixels();
   
 }
 
