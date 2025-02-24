@@ -4,7 +4,7 @@ html, body {
 }
 
 body {
-  font-family: 'VT323', monospace;
+  font-family: "Cascadia Code", "Courier New", Courier, monospace;
   background-color: #0D0D0D;
   color: #E5E5E5;
   margin: 0;
@@ -97,7 +97,6 @@ canvas {
   
   background: #000;
   color: #0f0;
-  font-family: 'VT323', monospace;
   font-size: 1rem;
   overflow: hidden;
   padding: 10px;
