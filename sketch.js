@@ -85,14 +85,14 @@ function onBeat(time) {
 }
 
 let randomWords = [
-  "heap", "stack", "queue", "graph", "node",  
-  "tree", "linked", "hash", "bloom", "trie",
-  "cache", "buffer", "mutex", "latency", "event",
-  "render", "hydrate", "fetch", "route", "session",
-  "server", "socket", "endpoint", "stream", "promise",
-  "glitch", "noise", "echo", "state", "sync",
-  "commit", "rollback", "shard", "replica", "query",
-  "schema", "index", "resolver", "sandbox", "proxy"
+  // "heap", "stack", "queue", "graph", "node",  
+  // "tree", "linked", "hash", "bloom", "trie",
+  // "cache", "buffer", "mutex", "latency", "event",
+  // "render", "hydrate", "fetch", "route", "session",
+  // "server", "socket", "endpoint", "stream", "promise",
+  // "glitch", "noise", "echo", "state", "sync",
+  // "commit", "rollback", "shard", "replica", "query",
+  // "schema", "index", "resolver", "sandbox", "proxy"
 ];
 
 let randomPunctuations = [" ", " ", " ", "  ", "\n", " -- ", "... ", ". "];
