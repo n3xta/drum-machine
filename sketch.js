@@ -48,8 +48,8 @@ let drumNames = [
 let nTracks = drumNames.length;
 
 kit = new Tone.Players({
-  "ui_click": "/assets/ui_click.wav",
-  "ui_swipe": "/assets/ui_swipe.wav",
+  "ui_click": "assets/ui_click.wav",
+  "ui_swipe": "assets/ui_swipe.wav",
   "187_percussion": "/assets/187_percussion.wav",
   // "glitch_hoito": "/assets/glitch_hoito.wav",
   // "glitch_kumman": "/assets/glitch_kumman.wav",
