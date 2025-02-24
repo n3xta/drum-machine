@@ -82,17 +82,17 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 100px;
   margin: 10px auto;
   padding: 10px;
   /* border: 2px solid #555;  */
-  max-width: 600px;
-  background-color: #131313;
+  max-width: 920px;
+  background-color: #0D0D0D;
 }
 
 #terminal {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 90px; left: 300px; right: 0; bottom: 100px;
   z-index: 10;
   pointer-events: none;
   
@@ -101,5 +101,5 @@ canvas {
   font-size: 1rem;
   overflow: hidden;
   padding: 10px;
-  opacity: 0.2;
+  opacity: 0.5;
 }

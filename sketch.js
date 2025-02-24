@@ -1,6 +1,3 @@
-
-
-
 let bpm = 240;
 let timeSignature = [4, 4];
 let nMeasures = 2;
@@ -86,12 +83,12 @@ function onBeat(time) {
   if (lineBuffer.length > 0) {
     const terminal = document.getElementById("terminal");
     if (terminal) {
-      let newLine = document.createElement("div"); // 创建新的行
-      newLine.textContent = lineBuffer; // 设置文本
-      terminal.appendChild(newLine); // 追加到终端
-      terminal.scrollTop = terminal.scrollHeight; // 滚动到底部
+      let newLine = document.createElement("div");
+      newLine.textContent = lineBuffer;
+      terminal.appendChild(newLine);
+      terminal.scrollTop = terminal.scrollHeight;
     }
-    lineBuffer = ""; // 清空缓冲区，为下一拍准备
+    lineBuffer = "";
   }
 }
 
@@ -248,16 +245,14 @@ function draw() {
     }
   }
 
-  // if (frameCount % 10 === 0) {
-    loadPixels();
-    for (let i = 0; i < pixels.length; i += 4) {
-      let noiseVal = random(-20, 20);
-      pixels[i]   += noiseVal;   // R
-      pixels[i+1] += noiseVal;   // G
-      pixels[i+2] += noiseVal;   // B
-    }
-    updatePixels();
-  // }
+    // loadPixels();
+    // for (let i = 0; i < pixels.length; i += 4) {
+    //   let noiseVal = random(-20, 20);
+    //   pixels[i]   += noiseVal;   // R
+    //   pixels[i+1] += noiseVal;   // G
+    //   pixels[i+2] += noiseVal;   // B
+    // }
+    // updatePixels();
   
 }
 
